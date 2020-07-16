@@ -1,23 +1,23 @@
-@NonCPS
 def call(Map config=[:]){
 node {
     stage('SCM') {
     	echo 'Gathering code from version control'
-	git branch: '${branch}', url: 'https://github.com/MehediZaman/JenkinsGroovy.git'
+	git branch: '${branch}', url: 'https://github.com/FeynmanFan/JenkinsGroovy.git'
     }
     stage('Build') {
 	try{
-        echo 'Building....'
-        echo 'Building New Feature'
+	        echo 'Building....'
+    		bat dir %windir%\Microsoft.NET\Framework /AD
+	        echo 'Building New Feature'
 		releasenotes(changes:"true")
-	}catch(ex){
+        }catch(ex){
         	echo 'Something went wrong'
         	echo ex.toString();
-        	currentBuild.result = 'Failure'
-	}
-	finally{
-		// cleanup
-	}	
+        	currentBuild.result = 'FAILURE'
+        }
+        finally{
+        	// cleanup
+        }
     }
     stage('Test') {
         echo 'Testing....'
