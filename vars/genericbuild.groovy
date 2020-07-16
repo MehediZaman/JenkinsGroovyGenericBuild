@@ -7,7 +7,7 @@ node {
     stage('Build') {
 	try{
 	        echo 'Building....'
-    		bat dir %windir%\Microsoft.NET\Framework /AD
+    		bat dotnet_version.bat
 	        echo 'Building New Feature'
 		releasenotes(changes:"true")
         }catch(ex){
